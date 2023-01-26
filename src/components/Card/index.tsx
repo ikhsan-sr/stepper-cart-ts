@@ -1,6 +1,6 @@
 import { StyledCard } from './styles'
 
-const Card = ({ children }) => {
+const Card = ({ children }: any) => {
   return (
     <StyledCard>{children}</StyledCard>
   )

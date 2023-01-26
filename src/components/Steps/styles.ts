@@ -16,4 +16,19 @@ export const StyledStepper = styled.div`
   .MuiStepIcon-text {
     fill: white;
   }
+
+  .MuiStepConnector-root {
+    top: 2
+  }
+
+  .MuiStepConnector-line {
+    border: none;
+  }
+
+  .MuiStepConnector-root span::before {
+    display: flex;
+    justify-content: center;
+    content: '❯';
+    color: var(--primary-color);
+  }
 `;
