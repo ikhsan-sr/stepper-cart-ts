@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 export const StyledCartPage = styled.div`
   background: #FFFAE6;
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
   padding: 6rem;
 
   .wrapper {

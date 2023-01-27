@@ -1,17 +1,17 @@
 export const COURIERS = [
   {
     name: 'GO-SEND',
-    cost: '15,000',
+    cost: 15000,
     eta: 'today',
   },
   {
     name: 'JNE',
-    cost: '9,000',
+    cost: 9000,
     eta: '2 days',
   },
   {
     name: 'Personal Courier',
-    cost: '29,000',
+    cost: 29000,
     eta: '1 day',
   },
 ];

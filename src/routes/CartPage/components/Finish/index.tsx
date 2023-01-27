@@ -7,11 +7,14 @@ import CheckIcon from '@mui/icons-material/Check';
 import { COURIERS, PAYMENTS } from './dummy';
 import { StyledFinish } from './styles'
 
-const Finish = ({ handleBack, handleNext }) => {
+const Finish = ({ handleBack, handleNext, cart }) => {
   const [data, setData] = useState({
-    shipment: COURIERS[0],
+    shipment: COURIERS[0] ,
     payment: PAYMENTS[0],
   })
+
+  const shipment = cart.shipment || COURIERS[0];
+  const payment = cart.payment || PAYMENTS[0];
 
   console.log(handleBack);
   
@@ -47,7 +50,7 @@ const Finish = ({ handleBack, handleNext }) => {
               <hr />
 
               <p className="eta-label">Delivery estimation</p>
-              <p className="eta">{data.shipment.eta} by {data.shipment.name}</p>
+              <p className="eta">{shipment.eta} by {shipment.name}</p>
             </div>
 
             <div className="details">
@@ -68,10 +71,10 @@ const Finish = ({ handleBack, handleNext }) => {
                 </Grid>
                 
                 <Grid item xs={9} className="item">
-                  <p>{data.shipment.name} shipment</p>
+                  <p>{shipment.name} shipment</p>
                 </Grid>
                 <Grid item xs={3} className="item right">
-                  <p><strong>{data.shipment.cost}</strong></p>
+                  <p><strong>{shipment.cost}</strong></p>
                 </Grid>
                 
                 <Grid item xs={6} className="total">

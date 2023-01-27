@@ -1,19 +1,31 @@
-import { useState } from 'react'
+import { useEffect, useState, useMemo } from 'react'
 
 import { Grid, Button, Checkbox, TextField, FormControlLabel } from '@mui/material'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CheckIcon from '@mui/icons-material/Check';
+import { formatRupiah } from '@/src/utils/rupiahFormat';
 
 import { COURIERS, PAYMENTS } from './dummy';
 import { StyledPayment } from './styles'
 
-const Payment = ({ handleBack, handleNext }) => {
+const Payment = ({ handleBack, handleNext, cart, setCart }) => {
   const [data, setData] = useState({
-    shipment: COURIERS[0],
-    payment: PAYMENTS[0],
-  })
+    shipment: cart.shipment || COURIERS[0],
+    payment:  cart.payment ||PAYMENTS[0],
+  });
 
-  console.log(handleBack);
+  useEffect(() => {
+    setCart({...cart, shipment: data.shipment, payment: data.payment})
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data])
+
+  const total = useMemo(() => {
+    let count = cart.subTotal + Number(data?.shipment?.cost || 0);
+    if (cart?.isDropshipper) {
+      count += 5900;
+    }
+    return formatRupiah(count);
+  }, [cart, data]);
   
   return (
     <StyledPayment>
@@ -42,7 +54,7 @@ const Payment = ({ handleBack, handleNext }) => {
                 >
                   <div>
                     <p>{item.name}</p>
-                    <p>{item.cost}</p>
+                    <p>{formatRupiah(item.cost)}</p>
                   </div>
                   {data.shipment.name === item.name && <CheckIcon color="success" />}
                 </div>
@@ -68,7 +80,6 @@ const Payment = ({ handleBack, handleNext }) => {
               </Grid> 
             ))}
 
-
           </Grid>
         </Grid>
         <Grid item xs={12} sm={12} md={12} lg={3} xl={3}>
@@ -90,28 +101,31 @@ const Payment = ({ handleBack, handleNext }) => {
                   <p>Cost of goods</p>
                 </Grid>
                 <Grid item xs={6} className="item right">
-                  <p><strong>500,000</strong></p>
+                  <p><strong>{formatRupiah(cart.subTotal)}</strong></p>
                 </Grid>
-                
-                <Grid item xs={6} className="item">
-                  <p>Dropshipping Fee</p>
-                </Grid>
-                <Grid item xs={6} className="item right">
-                  <p><strong>5,900</strong></p>
-                </Grid>
+                { cart.isDropshipper && (
+                  <>
+                    <Grid item xs={6} className="item">
+                      <p>Dropshipping Fee</p>
+                    </Grid>
+                    <Grid item xs={6} className="item right">
+                      <p><strong>5.900</strong></p>
+                    </Grid>
+                  </>
+                )}
                 
                 <Grid item xs={9} className="item">
                   <p>{data.shipment.name} shipment</p>
                 </Grid>
                 <Grid item xs={3} className="item right">
-                  <p><strong>{data.shipment.cost}</strong></p>
+                  <p><strong>{formatRupiah(data.shipment.cost || 0)}</strong></p>
                 </Grid>
                 
                 <Grid item xs={6} className="total">
                   <p>Total</p>
                 </Grid>
                 <Grid item xs={6} className="total right">
-                  <p><strong>{500000 + 5900}</strong></p>
+                  <p><strong>{total}</strong></p>
                 </Grid>
 
                 <Button 
