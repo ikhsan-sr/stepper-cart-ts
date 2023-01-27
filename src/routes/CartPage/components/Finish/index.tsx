@@ -4,10 +4,11 @@ import { Grid, Button, Checkbox, TextField, FormControlLabel } from '@mui/materi
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CheckIcon from '@mui/icons-material/Check';
 
+import { INITIAL_CART } from '../../const';
 import { COURIERS, PAYMENTS } from './dummy';
 import { StyledFinish } from './styles'
 
-const Finish = ({ handleBack, handleNext, cart }) => {
+const Finish = ({ handleNext, cart, setCart }) => {
   const [data, setData] = useState({
     shipment: COURIERS[0] ,
     payment: PAYMENTS[0],
@@ -16,7 +17,9 @@ const Finish = ({ handleBack, handleNext, cart }) => {
   const shipment = cart.shipment || COURIERS[0];
   const payment = cart.payment || PAYMENTS[0];
 
-  console.log(handleBack);
+  const handleReset = () => {
+    setCart(INITIAL_CART);
+  }
   
   return (
     <StyledFinish>
@@ -30,12 +33,12 @@ const Finish = ({ handleBack, handleNext, cart }) => {
               <p>Your order will be delivered today with GO-SEND</p>
               <Button 
                 variant="text" 
-                onClick={handleBack}
+                onClick={handleReset}
                 color="inherit"
                 startIcon={<ArrowBackIcon />}
                 className="btn-back"
               >
-                Back to delivery
+                Back to homepage
               </Button>
             </Grid>
 
