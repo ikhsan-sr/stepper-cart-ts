@@ -13,6 +13,12 @@ const Finish = ({ handleNext, cart, setCart }) => {
     shipment: COURIERS[0] ,
     payment: PAYMENTS[0],
   })
+  const id = Math.random().toString(36).slice(7);
+  const idFormated = id.toUpperCase()
+    .replaceAll('1', 'X')
+    .replaceAll('l', 'X')
+    .replaceAll('0', 'X')
+    .replaceAll('1', 'O');
 
   const shipment = cart.shipment || COURIERS[0];
   const payment = cart.payment || PAYMENTS[0];
@@ -29,7 +35,7 @@ const Finish = ({ handleNext, cart, setCart }) => {
           <Grid container>
             <Grid item xs={12} className="content-wrapper">
               <h1>Thank you</h1>
-              <p><strong>Order ID: XXYKB</strong></p>
+              <p><strong>Order ID: {idFormated}</strong></p>
               <p>Your order will be delivered today with GO-SEND</p>
               <Button 
                 variant="text" 

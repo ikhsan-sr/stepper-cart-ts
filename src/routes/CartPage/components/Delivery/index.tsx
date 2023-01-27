@@ -29,7 +29,7 @@ const Delivery = ({ handleBack, handleNext, cart, setCart }) => {
 
   useEffect(() => {
     const subscription = watch(value => {
-      setCart(value)
+      setCart({...cart, value})
     })
     
     return () => subscription.unsubscribe()
